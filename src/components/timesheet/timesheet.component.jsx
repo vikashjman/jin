@@ -80,8 +80,20 @@ const Timesheet = () => {
                     </tr>
                 </table>
             </div>
+            <div className="btns-wrapper">
+
+                <button className='btn btn-save'>Save</button>
+                <button className='btn btn-submit'>Submit <i className='pi pi-arrow-right'></i></button>
+            </div>
         </>
     );
 }
 
 export default Timesheet;
+
+
+
+
+
+
+
