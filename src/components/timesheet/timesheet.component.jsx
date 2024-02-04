@@ -1,13 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react';
 import './timesheet.styles.css';
 import Select from '../common/Select';
-import input from '../common/input';
 
 const Timesheet = () => {
+    const [bauRows, setBauRows] = useState(1);
+    const [salesRows, setSalesRows] = useState(1);
+
+    const addBauRow = () => setBauRows(bauRows + 1);
+    const removeBauRow = () => setBauRows(bauRows > 1 ? bauRows - 1 : 1);
+
+    const addSalesRow = () => setSalesRows(salesRows + 1);
+    const removeSalesRow = () => setSalesRows(salesRows > 1 ? salesRows - 1 : 1);
+
+    const renderRow = (isFirstRow, addFunc, removeFunc) => (
+        <>
+            <td><Select /></td>
+            <td><Select /></td>
+            <td><input type="text" /></td>
+            <td><input className='resize' type="text" /></td>
+            <td><input className='resize' type="text" /></td>
+            <td><input className='resize' type="text" /></td>
+            <td><input className='resize' type="text" /></td>
+            <td><input className='resize' type="text" /></td>
+            <td><input className='resize' type="text" /></td>
+            <td><input className='resize' type="text" /></td>
+            <td><input className='resize total' type="text" /></td>
+            <td>
+                <i className='pi pi-plus' style={{ fontWeight: 'bolder' }} onClick={addFunc}></i>
+                {!isFirstRow && <i className='pi pi-minus' style={{ fontWeight: 'bolder' }} onClick={removeFunc}></i>}
+            </td>
+        </>
+    );
+
     return (
         <>
             <div className="table-container">
-
                 <table id="timesheet-table">
                     <tr>
                         <th>Project Type</th>
@@ -24,80 +51,22 @@ const Timesheet = () => {
                         <th>Total</th>
                         <th></th>
                     </tr>
-                    <tr>
-                        <td rowSpan={2}>BAU Activity</td>
-                        <td><Select /></td>
-                        <td><Select /></td>
-
-                        <td><input type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize total' type="text" /></td>
-                        <td><i className='pi pi-plus' style={{ fontWeight: 'bolder' }}></i>
-                        <i className='pi pi-minus' style={{ fontWeight: 'bolder' }}></i></td>
-                    </tr>
-                    <tr>
-                        <td><Select /></td>
-                        <td><Select /></td>
-
-                        <td><input type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize total' type="text" /></td>
-                        <td><i className='pi pi-plus' style={{ fontWeight: 'bolder' }}></i>
-                        <i className='pi pi-minus' style={{ fontWeight: 'bolder' }}></i></td>
-                    </tr>
-
-                    <tr>
-                        <td rowSpan={2}>Sales Activity</td>
-                        <td><Select /></td>
-                        <td><Select /></td>
-
-                        <td><input type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize total' type="text" /></td>
-                        <td><i className='pi pi-plus' style={{ fontWeight: 'bolder' }}></i>
-                        <i className='pi pi-minus' style={{ fontWeight: 'bolder' }}></i></td>
-                    </tr>
-
-                    <tr>
-                        <td><Select /></td>
-                        <td><Select /></td>
-
-                        <td><input type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize' type="text" /></td>
-                        <td><input className='resize total' type="text" /></td>
-                        <td><i className='pi pi-plus' style={{ fontWeight: 'bolder' }}></i>
-                        <i className='pi pi-minus' style={{ fontWeight: 'bolder' }}></i></td>
-                    </tr>
-
+                    {[...Array(bauRows)].map((_, i) => 
+                        <tr key={i}>
+                            {i === 0 && <td rowSpan={bauRows}>BAU Activity</td>}
+                            {renderRow(i === 0, addBauRow, i > 0 ? removeBauRow : null)}
+                        </tr>
+                    )}
+                    {[...Array(salesRows)].map((_, i) => 
+                        <tr key={i}>
+                            {i === 0 && <td rowSpan={salesRows}>Sales Activity</td>}
+                            {renderRow(i === 0, addSalesRow, i > 0 ? removeSalesRow : null)}
+                        </tr>
+                    )}
                     <tr>
                         <td>Total Hours</td>
                         <td></td>
                         <td></td>
-
                         <td><input type="text" /></td>
                         <td><input className='resize' type="text" /></td>
                         <td><input className='resize' type="text" /></td>
@@ -107,13 +76,12 @@ const Timesheet = () => {
                         <td><input className='resize' type="text" /></td>
                         <td><input className='resize' type="text" /></td>
                         <td><input className='resize total' type="text" /></td>
-                        <td><i className='pi pi-plus' style={{ fontWeight: 'bolder' }}></i>
-                        <i className='pi pi-minus' style={{ fontWeight: 'bolder' }}></i></td>
+                        <td></td>
                     </tr>
                 </table>
             </div>
         </>
-    )
+    );
 }
 
-export default Timesheet
+export default Timesheet;
