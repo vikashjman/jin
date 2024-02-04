@@ -1,7 +1,7 @@
 /* sidebar.styles.css */
 
 .sidebar {
-    background: linear-gradient(to bottom, #2c0735, #f05b69);
+    background: linear-gradient(#19105b, #472067, #7c3375, #FF6196) !important;
     width: 200px;
     height: 200vh;
     color: white;
