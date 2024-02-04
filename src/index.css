@@ -1,0 +1,18 @@
+
+
+:root{
+  --text-primary: hsl(247, 70%, 21%);
+  --font-primary: 'Arial';
+}
+*{
+  box-sizing: border-box;
+  /* margin: 0; */
+  /* padding: 0; */
+  font-family: var(--font-primary);
+}
+
+body{
+  color: var(--text-primary);
+  margin: 0;
+  padding: 0;
+}

@@ -1,0 +1,30 @@
+.table-container {
+    width: 100%; /* Adjust as needed */
+    overflow-x:auto;
+}
+
+#timesheet-table {
+    /* min-width: 1500px; */
+    min-width: 1200px;
+    border-collapse: collapse;
+}
+
+#timesheet-table th {
+    padding: 0.8rem 0.6rem;
+    text-align: left;
+    background-color: #FFE5EE;
+    color: black;
+}
+
+#timesheet-table td{
+    text-align: left;
+    padding: 0.8rem 0.6rem;
+}
+
+.resize{
+    width: 60%;
+}
+
+tr:not(:last-child) {
+    border-bottom: 1px solid #ddd;
+}
